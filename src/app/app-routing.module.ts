@@ -11,6 +11,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'consulta-cep',
+    loadChildren: () => import('./consulta-cep/consulta-cep.module').then( m => m.ConsultaCepPageModule)
+  },
 ];
 
 @NgModule({

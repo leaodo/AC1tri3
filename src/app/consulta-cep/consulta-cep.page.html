@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Consulta CEP</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-item>
+    <ion-label position="floating">Digite o CEP</ion-label>
+    <ion-input [(ngModel)]="cep" type="text" placeholder="01537-001"></ion-input>
+  </ion-item>
+
+  <ion-button expand="block" (click)="buscarCEP()">CONSULTAR</ion-button>
+
+  <div *ngIf="endereco">
+    <p><strong>Logradouro:</strong> {{ endereco.logradouro }}</p>
+    <p><strong>Bairro:</strong> {{ endereco.bairro }}</p>
+    <p><strong>Cidade:</strong> {{ endereco.localidade }}</p>
+    <p><strong>Estado:</strong> {{ endereco.uf }}</p>
+  </div>
+
+</ion-content>
