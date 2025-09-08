@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
   standalone: false
 })
 export class ConsultaCepPage {
-  cep: string = '';
+  cep = '';
   endereco: any;
 
   constructor(private http: HttpClient) {}
