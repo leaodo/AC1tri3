@@ -1,23 +1,44 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="white">
     <ion-title>CEP</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
 
+
   <ion-item>
     <ion-label position="floating">Digite o CEP</ion-label>
-    <ion-input [(ngModel)]="cep" type="text"></ion-input>
+    <ion-input [(ngModel)]="cep"></ion-input>
+  </ion-item>
+  <ion-button expand="block" color="primary" (click)="buscarPorCep()">Consultar CEP</ion-button>
+
+
+  <ion-item>
+    <ion-label position="floating">Estado</ion-label>
+    <ion-input [(ngModel)]="uf" placeholder="SP"></ion-input>
   </ion-item>
 
-  <ion-button expand="block" (click)="buscarCEP()">CONSULTAR</ion-button>
+  <ion-item>
+    <ion-label position="floating">Cidade</ion-label>
+    <ion-input [(ngModel)]="cidade" ></ion-input>
+  </ion-item>
 
-  <div *ngIf="endereco">
-    <p><strong>logradouro:</strong> {{ endereco.logradouro }}</p>
-    <p><strong>bairro:</strong> {{ endereco.bairro }}</p>
-    <p><strong>Cidade:</strong> {{ endereco.localidade }}</p>
-    <p><strong>estado:</strong> {{ endereco.uf }}</p>
-  </div>
+  <ion-item>
+    <ion-label position="floating">Rua</ion-label>
+    <ion-input [(ngModel)]="rua" ></ion-input>
+  </ion-item>
+  <ion-button expand="block" color="primary" (click)="buscarPorEndereco()">Consultar Endereço</ion-button>
+
+  <ion-list *ngIf="resultados && resultados.length > 0">
+    <ion-item *ngFor="let r of resultados">
+      <ion-label>
+        <h2>{{ r.logradouro }}</h2>
+        <p>bairro: {{ r.bairro }}</p>
+        <p>cidade: {{ r.localidade }} - {{ r.uf }}</p>
+        <p>CEP: {{ r.cep }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 
 </ion-content>

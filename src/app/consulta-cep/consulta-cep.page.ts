@@ -5,25 +5,50 @@ import { HttpClient } from '@angular/common/http';
   selector: 'app-consulta-cep',
   templateUrl: './consulta-cep.page.html',
   styleUrls: ['./consulta-cep.page.scss'],
-  standalone: false
+  standalone: false,
 })
 export class ConsultaCepPage {
-  cep = '';
-  endereco: any;
+
+  cep= '';
+  uf= '';
+  cidade = '';
+  rua = '';
+
+  resultados: any[] = [];
 
   constructor(private http: HttpClient) {}
 
-  buscarCEP() {
-    if (this.cep) {
-      const url = `https://viacep.com.br/ws/${this.cep}/json/`;
-      this.http.get(url).subscribe({
-        next: (data) => {
-          this.endereco = data;
-        },
-        error: (err) => {
-          console.error('Erro ao buscar CEP', err);
+
+  buscarPorCep() {
+    if (!this.cep) {
+      alert('Digite um CEP válido');
+      return;
+    }
+    this.http.get(`https://viacep.com.br/ws/${this.cep}/json/`)
+      .subscribe((data: any) => {
+        if (data.erro) {
+          alert('CEP não encontrado');
+          this.resultados = [];
+        } else {
+          this.resultados = [data];
         }
       });
+  }
+
+
+  buscarPorEndereco() {
+    if (!this.uf || !this.cidade || !this.rua) {
+      alert('Digite UF, Cidade e Rua');
+      return;
     }
+    this.http.get(`https://viacep.com.br/ws/${this.uf}/${this.cidade}/${this.rua}/json/`)
+      .subscribe((data: any) => {
+        if (!data || data.length === 0) {
+          alert('Endereço não encontrado');
+          this.resultados = [];
+        } else {
+          this.resultados = data;
+        }
+      });
   }
 }
